@@ -1,7 +1,8 @@
+import * as fa6Icons from 'react-icons/fa6'
 import type { CollectionConfig } from 'payload/types'
 
 // eslint-disable-next-line import/no-relative-packages
-import { iconPickerField } from '../../../dist'
+import iconPickerField from '../../../dist'
 import { icons } from '../assets/icons'
 
 const Pages: CollectionConfig = {
@@ -32,9 +33,14 @@ const Pages: CollectionConfig = {
       },
     },
     iconPickerField({
-      name: 'icon',
-      label: 'Icon',
+      name: 'customIcons',
+      label: 'Custom Icons',
       icons: icons,
+    }),
+    iconPickerField({
+      name: 'reactIconsIcon',
+      label: 'React Icons',
+      reactIconPack: fa6Icons,
     }),
     {
       name: 'date',

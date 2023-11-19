@@ -34,6 +34,7 @@ export type IconInputProps = Omit<TextField, 'type'> & {
   value?: string
   width?: string
   icons?: Record<string, string>
+  renderSvg?: boolean
 }
 
 const IconInput: React.FC<IconInputProps> = ({
@@ -58,10 +59,11 @@ const IconInput: React.FC<IconInputProps> = ({
   value,
   width,
   icons,
+  renderSvg,
 }) => {
   const [filteredIcons, setFilteredIcons] = useState(icons)
   const [hoveredIcon, setHoveredIcon] = useState<null | string>(null)
-  const [fieldIsFocused, setFieldIsFocused] = useState(true)
+  const [fieldIsFocused, setFieldIsFocused] = useState(false)
 
   const { i18n } = useTranslation()
 
@@ -85,14 +87,6 @@ const IconInput: React.FC<IconInputProps> = ({
     }
   }
 
-  document.addEventListener('click', (e: any) => {
-    const inputContainer = document.querySelector(`.${baseClass}__input-container`)
-    if (inputContainer && !inputContainer.contains(e.target)) {
-      setFieldIsFocused(false)
-      setFilteredIcons(icons)
-    }
-  })
-
   return (
     <div
       className={[fieldBaseClass, 'icon', className, showError && 'error', readOnly && 'read-only']
@@ -105,11 +99,23 @@ const IconInput: React.FC<IconInputProps> = ({
     >
       <ErrorComp message={errorMessage as string} showError={showError} />
       <LabelComp htmlFor={`field-${path.replace(/\./g, '__')}`} label={label} required={required} />
-      <div className={`${baseClass}__input-container`} onFocus={() => setFieldIsFocused(true)}>
+      <div
+        className={`${baseClass}__input-container`}
+        onFocus={() => setFieldIsFocused(true)}
+        onBlur={e => {
+          if (!e.currentTarget.contains(e.relatedTarget)) {
+            setTimeout(() => setFieldIsFocused(false), 200)
+          }
+        }}
+      >
         {Array.isArray(beforeInput) && beforeInput.map((Component, i) => <Component key={i} />)}
         {!rtl && (
           <div className={`${baseClass}__icon-preview`} onClick={() => setFieldIsFocused(true)}>
-            <span dangerouslySetInnerHTML={{ __html: (value && icons && icons[value]) || '' }} />
+            {renderSvg ? (
+              <span dangerouslySetInnerHTML={{ __html: (value && icons && icons[value]) || '' }} />
+            ) : (
+              value && icons && icons[value]
+            )}
           </div>
         )}
         <input
@@ -131,7 +137,11 @@ const IconInput: React.FC<IconInputProps> = ({
         />
         {rtl && (
           <div className={`${baseClass}__icon-preview`} onClick={() => setFieldIsFocused(true)}>
-            <span dangerouslySetInnerHTML={{ __html: (value && icons && icons[value]) || '' }} />
+            {renderSvg ? (
+              <span dangerouslySetInnerHTML={{ __html: (value && icons && icons[value]) || '' }} />
+            ) : (
+              value && icons && icons[value]
+            )}
           </div>
         )}
         {fieldIsFocused && filteredIcons && (
@@ -159,7 +169,13 @@ const IconInput: React.FC<IconInputProps> = ({
                   }`}
                   key={index}
                 >
-                  <span dangerouslySetInnerHTML={{ __html: filteredIcons[icon] }} />
+                  {renderSvg ? (
+                    <span
+                      dangerouslySetInnerHTML={{ __html: (value && icons && icons[icon]) || '' }}
+                    />
+                  ) : (
+                    value && icons && icons[icon]
+                  )}
                 </div>
               ))}
               {Object.keys(filteredIcons as Record<string, string>).length == 0 && (

@@ -5,4 +5,5 @@ export type Props = Omit<TextField, 'type'> & {
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>
   path?: string
   icons?: Record<string, string>
+  renderSvg?: boolean
 }

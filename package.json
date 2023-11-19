@@ -26,7 +26,8 @@
   "license": "MIT",
   "peerDependencies": {
     "payload": "^2.0.0",
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-icons": "^4.12.0"
   },
   "devDependencies": {
     "@payloadcms/eslint-config": "^0.0.1",
