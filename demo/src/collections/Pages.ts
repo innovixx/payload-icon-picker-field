@@ -1,5 +1,8 @@
 import type { CollectionConfig } from 'payload/types'
 
+// eslint-disable-next-line import/no-relative-packages
+import { iconPickerField } from '../../../dist'
+
 const Pages: CollectionConfig = {
   slug: 'pages',
   admin: {
@@ -27,6 +30,10 @@ const Pages: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    iconPickerField({
+      name: 'icon',
+      label: 'Icon',
+    }),
     {
       name: 'date',
       type: 'date',

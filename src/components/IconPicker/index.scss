@@ -1,0 +1,29 @@
+@import '~payload/scss';
+
+.field-type.icon {
+  position: relative;
+
+  input {
+    @include formInput;
+  }
+}
+
+html[data-theme='light'] {
+  .field-type.icon {
+    &.error {
+      input {
+        @include lightInputError;
+      }
+    }
+  }
+}
+
+html[data-theme='dark'] {
+  .field-type.icon {
+    &.error {
+      input {
+        @include darkInputError;
+      }
+    }
+  }
+}

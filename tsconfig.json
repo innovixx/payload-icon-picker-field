@@ -11,6 +11,9 @@
     "declarationDir": "./dist",
     "skipLibCheck": true,
     "strict": true,
+    "paths": {
+      "react": ["./node_modules/@types/react"],
+    }
   },
   "include": [
     "src/**/*"

@@ -7,10 +7,13 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && yarn copy:scss",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src",
-    "lint:fix": "eslint --fix --ext .ts,.tsx src"
+    "lint:fix": "eslint --fix --ext .ts,.tsx src",
+    "copy:scss": "copyfiles -u 1 \"src/**/*.scss\" dist",
+    "watch": "nodemon --watch src -e ts,tsx,scss --exec \"yarn build\"",
+    "prepare": "npm run build"
   },
   "keywords": [
     "payload",
@@ -41,7 +44,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
-    "nodemon": "^2.0.6",
+    "nodemon": "^3.0.1",
     "payload": "^2.1.1",
     "prettier": "^2.7.1",
     "ts-node": "^9.1.1",
