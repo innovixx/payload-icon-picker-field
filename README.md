@@ -1,4 +1,4 @@
-# Payload Plugin Boilerplate
+# Payload Icon Picker Field
 
 [![NPM](https://img.shields.io/npm/v/@innovixx/payload-icon-picker-field)](https://www.npmjs.com/package/@innovixx/payload-icon-picker-field)
 
