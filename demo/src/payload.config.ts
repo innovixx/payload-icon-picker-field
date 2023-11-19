@@ -4,8 +4,6 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload/config'
 
-// eslint-disable-next-line import/no-relative-packages
-import plugin from '../../dist'
 import Media from './collections/Media'
 import Pages from './collections/Pages'
 import Posts from './collections/Posts'
@@ -47,18 +45,6 @@ export default buildConfig({
     defaultLocale: 'en',
     fallback: true,
   },
-  plugins: [
-    plugin({
-      overwrites: {
-        admin: {
-          autoLogin: {
-            email: 'admin@innovixx.co.uk',
-            password: 'Pa$$w0rd!',
-          },
-        },
-      },
-    }),
-  ],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
