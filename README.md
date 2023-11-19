@@ -2,7 +2,9 @@
 
 [![NPM](https://img.shields.io/npm/v/@innovixx/payload-icon-picker-field)](https://www.npmjs.com/package/@innovixx/payload-icon-picker-field)
 
-A field for [Payload](https://github.com/payloadcms/payload) {{DESCRIPTION}}.
+A field for [Payload](https://github.com/payloadcms/payload) which implements a robust icon picker which can be used with react-icons or custom svg icons.
+
+![payload-icon-picker-field-screenshot.png](https://github.com/Innovixx-Development/payload-icon-picker-field/blob/master/screenshots/payload-icon-picker-field-screenshot.png?raw=true)
 
 Core features:
 
@@ -18,52 +20,41 @@ Core features:
 
 ## Basic Usage
 
-In the `plugins` array of your [Payload config](https://payloadcms.com/docs/configuration/overview), call the plugin with [options](#options):
-
 ```js
-import { buildConfig } from 'payload/config';
-import plugin from '@innovixx/payload-icon-picker-field';
+import * as fa6Icons from 'react-icons/fa6'
+import iconPickerField from '@innovixx/payload-icon-picker-field'
+import type { CollectionConfig } from 'payload/types'
 
-const config = buildConfig({
-  collections: [
+const Pages: CollectionConfig = {
+  slug: 'pages',
+  admin: {
+    useAsTitle: 'title',
+  },
+  fields: [
     {
-      slug: 'pages',
-      fields: []
+      name: 'title',
+      type: 'text',
+      required: true,
     },
-    {
-      slug: 'media',
-      upload: {
-        staticDir: // path to your static directory,
+    iconPickerField({
+      name: 'customIcons',
+      label: 'Custom Icons',
+      icons: {
+        house: '<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"...',
+        user: '<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"...',
+        check: '<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"...',
       },
-      fields: []
-    }
+    }),
+    iconPickerField({
+      name: 'reactIconsIcon',
+      label: 'React Icons',
+      reactIconPack: fa6Icons,
+    }),
   ],
-  plugins: [
-    {{plugin()}}
-  ]
-});
+}
 
-export default config;
-```
+export default Pages
 
-### Options
-
-- `overwrites` : [key: string]: any | optional
-
-  An object of overwrites to apply to the plugin. This is useful for when you want to customize the plugin's behaviour without having to fork it. The object keys are the names of the properties you want to overwrite, and the values are the functions you want to use instead.
-
-  ```js
-
-  ```
-
-## TypeScript
-
-All types can be directly imported:
-
-```js
-import {
-  PluginConfig,
-} from '@innovixx/payload-icon-picker-field/types';
 ```
 
 ## Development
