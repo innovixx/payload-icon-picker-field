@@ -20,7 +20,9 @@
     "cms",
     "field",
     "typescript",
-    "react"
+    "react",
+    "icons",
+    "selector"
   ],
   "author": "support@innovixx.co.uk",
   "license": "MIT",
