@@ -32,6 +32,7 @@ const Icon: React.FC<Props> = props => {
     path: pathFromProps,
     required,
     validate = text,
+    icons,
   } = props
 
   const path = pathFromProps || name
@@ -82,6 +83,7 @@ const Icon: React.FC<Props> = props => {
       style={style}
       value={value}
       width={width}
+      icons={icons}
     />
   )
 }

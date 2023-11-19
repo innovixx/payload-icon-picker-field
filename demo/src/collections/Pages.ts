@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload/types'
 
 // eslint-disable-next-line import/no-relative-packages
 import { iconPickerField } from '../../../dist'
+import { icons } from '../assets/icons'
 
 const Pages: CollectionConfig = {
   slug: 'pages',
@@ -33,6 +34,7 @@ const Pages: CollectionConfig = {
     iconPickerField({
       name: 'icon',
       label: 'Icon',
+      icons: icons,
     }),
     {
       name: 'date',

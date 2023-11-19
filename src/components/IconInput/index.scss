@@ -1,0 +1,124 @@
+@import '~payload/scss';
+
+.field-type.icon {
+  position: relative;
+
+  input {
+    @include formInput;
+  }
+}
+
+.icon {
+  &__input-container {
+    position: relative;
+    display: flex;
+  }
+  &__icon-preview {
+    height: base(2);
+    width: base(2);
+    border: 1px solid var(--theme-elevation-150);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--theme-input-bg);
+
+    & span {
+      color: var(--theme-elevation-800);
+      fill: var(--theme-elevation-800);
+
+      & > * {
+        height: base(1);
+        width: base(1);
+      }
+    }
+
+    cursor: pointer;
+  }
+  &__icon-picker-modal {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--theme-input-bg);
+    padding: base(0.5);
+
+    max-width: base(15);
+    margin-top: base(0.5);
+    z-index: $z-modal;
+
+    box-shadow: 0 20px 35px -10px rgba(0, 2, 4, 0.2), 0 6px 4px -4px rgba(0, 2, 4, 0.02);
+    border: 1px solid var(--theme-elevation-100);
+ 
+    &__icon-container {
+      display: flex;
+      flex-wrap: wrap;
+      overflow-y: scroll;
+      height: inherit;
+
+      margin-bottom: base(1);
+
+      max-height: base(10);
+    }
+
+    &__icon-option {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      border: 1px solid var(--theme-elevation-150);
+      border-radius: 2px;
+      color: var(--theme-elevation-800);
+      fill: var(--theme-elevation-800);
+      background-color: var(--theme-input-bg);
+      height: base(1.5);
+      width: base(1.5);
+      margin: 5px;
+      transition: all 0.25s ease;
+
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--theme-elevation-100);
+        transition: all 0.25s ease;
+      }
+    }
+
+    &__icon-option-active {
+      background-color: var(--theme-elevation-150);
+    }
+
+    &__icon-search {
+      &input {
+        color: var(--theme-elevation-800);
+      }
+    }
+  }
+
+  &__icon-picker-modal--rtl {
+    left: auto;
+    right: 0;
+
+    &__icon-container {
+      justify-content: flex-end;
+    }
+  }
+}
+
+html[data-theme='light'] {
+  .field-type.icon {
+    &.error {
+      input {
+        @include lightInputError;
+      }
+    }
+  }
+}
+
+html[data-theme='dark'] {
+  .field-type.icon {
+    &.error {
+      input {
+        @include darkInputError;
+      }
+    }
+  }
+}

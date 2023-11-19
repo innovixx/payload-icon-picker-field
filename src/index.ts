@@ -1,18 +1,24 @@
 import type { Field, TextField } from 'payload/dist/fields/config/types'
 
-import IconInput from './components/IconPicker/input'
+import IconInput from './components/IconInput'
 
-export const iconPickerField = (options?: Partial<TextField>): Field => {
+export const iconPickerField = (
+  options?: Partial<TextField> & {
+    icons?: Record<string, string>
+  },
+): Field => {
+  const { icons, ...overwriteOptions } = options || {}
+
   return {
-    ...options,
-    name: options?.name || 'iconPicker',
-    label: options?.label || 'Icon Picker',
+    ...overwriteOptions,
+    name: overwriteOptions?.name || 'iconPicker',
+    label: overwriteOptions?.label || 'Icon Picker',
     type: 'text',
     admin: {
-      ...options?.admin,
+      ...overwriteOptions?.admin,
       components: {
-        ...options?.admin?.components,
-        Field: args => IconInput({ ...args }),
+        ...overwriteOptions?.admin?.components,
+        Field: args => IconInput({ ...args, icons }),
       },
     },
   }
