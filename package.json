@@ -1,9 +1,9 @@
 {
-  "name": "@innovixx/payload-plugin-boilerplate",
+  "name": "@innovixx/payload-icon-picker-field",
   "version": "2.0.0",
   "homepage:": "https://innovixx.co.uk",
-  "repository": "git@github.com:innovixx/payload-plugin-boilerplate.git",
-  "description": "This Git repo provides a boilerplate for creating a payload-plugin. It includes all the necessary files and dependencies to set up a basic structure for developing a custom plugin. Developers can save time by using this boilerplate as a starting point for their own plugin development.",
+  "repository": "git@github.com:Innovixx-Development/payload-icon-picker-field.git",
+  "description": "payload-icon-picker-field",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -15,7 +15,7 @@
   "keywords": [
     "payload",
     "cms",
-    "plugin",
+    "field",
     "typescript",
     "react"
   ],

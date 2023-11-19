@@ -19,7 +19,7 @@ services:
 
     # Use "forwardPorts" in **devcontainer.json** to forward an app port locally. 
     # (Adding the "ports" property to this file will not forward from a Codespace.)
-    working_dir: /workspaces/payload-plugin-boilerplate/demo
+    working_dir: /workspaces/payload-icon-picker-field/demo
 
   db:
     image: mongo:latest
