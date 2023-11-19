@@ -1,11 +1,12 @@
 import type { ChangeEvent } from 'react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import DefaultError from 'payload/dist/admin/components/forms/Error'
 import { fieldBaseClass } from 'payload/dist/admin/components/forms/field-types/shared'
 import FieldDescription from 'payload/dist/admin/components/forms/FieldDescription'
 import { Description } from 'payload/dist/admin/components/forms/FieldDescription/types'
 import DefaultLabel from 'payload/dist/admin/components/forms/Label'
+import useDebounce from 'payload/dist/admin/hooks/useDebounce'
 import type { TextField } from 'payload/dist/fields/config/types'
 import { getTranslation } from 'payload/dist/utilities/getTranslation'
 
@@ -61,31 +62,32 @@ const IconInput: React.FC<IconInputProps> = ({
   icons,
   renderSvg,
 }) => {
+  const [search, setSearch] = useState('')
   const [filteredIcons, setFilteredIcons] = useState(icons)
   const [hoveredIcon, setHoveredIcon] = useState<null | string>(null)
   const [fieldIsFocused, setFieldIsFocused] = useState(false)
 
   const { i18n } = useTranslation()
+  const debouncedSearch = useDebounce(search, 300)
 
   const ErrorComp = Error || DefaultError
   const LabelComp = Label || DefaultLabel
 
-  const searchIcons = (e: any) => {
+  useEffect(() => {
     if (!icons) return
 
-    const value = e.target.value
-    if (value == '') {
+    if (debouncedSearch == '') {
       setFilteredIcons(icons)
     } else {
       const foundIcons: any = {}
       Object.keys(icons).forEach(icon => {
-        if (icon.includes(value)) {
+        if (icon.includes(debouncedSearch)) {
           foundIcons[icon] = icons[icon]
         }
       })
       setFilteredIcons(foundIcons)
     }
-  }
+  }, [debouncedSearch, icons])
 
   return (
     <div
@@ -163,6 +165,7 @@ const IconInput: React.FC<IconInputProps> = ({
                     setFieldIsFocused(false)
                     setFilteredIcons(icons)
                   }}
+                  title={icon}
                   onMouseOver={() => setHoveredIcon(icon)}
                   className={`${baseClass}__icon-picker-modal__icon-option ${
                     value == icon ? `${baseClass}__icon-picker-modal__icon-option-active` : ''
@@ -186,7 +189,9 @@ const IconInput: React.FC<IconInputProps> = ({
               <input
                 type="search"
                 className="search_field"
-                onChange={searchIcons}
+                onChange={e => {
+                  setSearch(e.target.value)
+                }}
                 placeholder={hoveredIcon || 'Search icons...'}
                 data-rtl={rtl}
               />
