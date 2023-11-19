@@ -146,7 +146,7 @@ const IconInput: React.FC<IconInputProps> = ({
             )}
           </div>
         )}
-        {fieldIsFocused && filteredIcons && (
+        {fieldIsFocused && (
           <div
             className={`${baseClass}__icon-picker-modal ${
               rtl ? `${baseClass}__icon-picker-modal--rtl` : ''
@@ -174,10 +174,12 @@ const IconInput: React.FC<IconInputProps> = ({
                 >
                   {renderSvg ? (
                     <span
-                      dangerouslySetInnerHTML={{ __html: (value && icons && icons[icon]) || '' }}
+                      dangerouslySetInnerHTML={{
+                        __html: (icon && icons && icons[icon]) || '',
+                      }}
                     />
                   ) : (
-                    value && icons && icons[icon]
+                    icon && icons && icons[icon]
                   )}
                 </div>
               ))}
