@@ -24,7 +24,7 @@ export default (
       (acc, [key, Icon]) =>
         typeof Icon === 'function' && {
           ...acc,
-          [key]: Icon({ size: '1.5em' }),
+          [key]: Icon,
         },
       {},
     )

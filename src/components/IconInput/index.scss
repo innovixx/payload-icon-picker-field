@@ -48,6 +48,10 @@
     box-shadow: 0 20px 35px -10px rgba(0, 2, 4, 0.2), 0 6px 4px -4px rgba(0, 2, 4, 0.02);
     border: 1px solid var(--theme-elevation-100);
  
+    &__pagination-meta-container {
+      padding: base(0.25);
+    }
+
     &__icon-container {
       display: flex;
       flex-wrap: wrap;

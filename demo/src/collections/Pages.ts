@@ -1,4 +1,4 @@
-import * as fa6Icons from 'react-icons/fa6'
+import * as fa6Icons from 'react-icons/bs'
 import type { CollectionConfig } from 'payload/types'
 
 // eslint-disable-next-line import/no-relative-packages

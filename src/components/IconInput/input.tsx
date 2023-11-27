@@ -34,7 +34,7 @@ export type IconInputProps = Omit<TextField, 'type'> & {
   style?: React.CSSProperties
   value?: string
   width?: string
-  icons?: Record<string, string>
+  icons?: Record<string, any>
   renderSvg?: boolean
 }
 
@@ -116,7 +116,7 @@ const IconInput: React.FC<IconInputProps> = ({
             {renderSvg ? (
               <span dangerouslySetInnerHTML={{ __html: (value && icons && icons[value]) || '' }} />
             ) : (
-              value && icons && icons[value]
+              value && icons && icons[value]?.()
             )}
           </div>
         )}
@@ -142,7 +142,7 @@ const IconInput: React.FC<IconInputProps> = ({
             {renderSvg ? (
               <span dangerouslySetInnerHTML={{ __html: (value && icons && icons[value]) || '' }} />
             ) : (
-              value && icons && icons[value]
+              value && icons && icons[value]?.()
             )}
           </div>
         )}
@@ -152,37 +152,48 @@ const IconInput: React.FC<IconInputProps> = ({
               rtl ? `${baseClass}__icon-picker-modal--rtl` : ''
             }`}
           >
+            <div className={`${baseClass}__icon-picker-modal__pagination-meta-container`}>
+              <span>
+                Showing{' '}
+                {Object.keys(filteredIcons as Record<string, string>).length > 140
+                  ? 140
+                  : Object.keys(filteredIcons as Record<string, string>).length}{' '}
+                icons of {Object.keys(icons as Record<string, string>).length}
+              </span>
+            </div>
             <div className={`${baseClass}__icon-picker-modal__icon-container`}>
-              {Object.keys(filteredIcons as Record<string, string>).map((icon, index) => (
-                <div
-                  onClick={() => {
-                    onChange?.({
-                      target: {
-                        name: path,
-                        value: icon,
-                      },
-                    } as ChangeEvent<HTMLInputElement>)
-                    setFieldIsFocused(false)
-                    setFilteredIcons(icons)
-                  }}
-                  title={icon}
-                  onMouseOver={() => setHoveredIcon(icon)}
-                  className={`${baseClass}__icon-picker-modal__icon-option ${
-                    value == icon ? `${baseClass}__icon-picker-modal__icon-option-active` : ''
-                  }`}
-                  key={index}
-                >
-                  {renderSvg ? (
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html: (icon && icons && icons[icon]) || '',
-                      }}
-                    />
-                  ) : (
-                    icon && icons && icons[icon]
-                  )}
-                </div>
-              ))}
+              {Object.keys(filteredIcons as Record<string, string>)
+                .slice(0, 140)
+                .map((icon, index) => (
+                  <div
+                    onClick={() => {
+                      onChange?.({
+                        target: {
+                          name: path,
+                          value: icon,
+                        },
+                      } as ChangeEvent<HTMLInputElement>)
+                      setFieldIsFocused(false)
+                      setFilteredIcons(icons)
+                    }}
+                    title={icon}
+                    onMouseOver={() => setHoveredIcon(icon)}
+                    className={`${baseClass}__icon-picker-modal__icon-option ${
+                      value == icon ? `${baseClass}__icon-picker-modal__icon-option-active` : ''
+                    }`}
+                    key={index}
+                  >
+                    {renderSvg ? (
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: (icon && icons && icons[icon]) || '',
+                        }}
+                      />
+                    ) : (
+                      icon && icons && icons[icon]?.()
+                    )}
+                  </div>
+                ))}
               {Object.keys(filteredIcons as Record<string, string>).length == 0 && (
                 <span>No icons found</span>
               )}
