@@ -81,7 +81,7 @@ const IconInput: React.FC<IconInputProps> = ({
     } else {
       const foundIcons: any = {}
       Object.keys(icons).forEach(icon => {
-        if (icon.includes(debouncedSearch)) {
+        if (icon.toLowerCase().includes(debouncedSearch.toLowerCase())) {
           foundIcons[icon] = icons[icon]
         }
       })
