@@ -14,7 +14,6 @@ import { IconPickerInput } from './Input'
 const IconPickerField: IconPickerFieldClientComponent = (props) => {
   const {
     icons,
-    renderSvg,
     field,
     field: {
       admin: { className, description, placeholder, rtl } = {},
@@ -90,7 +89,6 @@ const IconPickerField: IconPickerFieldClientComponent = (props) => {
       style={styles}
       value={(value as string) || ''}
       icons={icons}
-      renderSvg={renderSvg}
     />
   )
 }
