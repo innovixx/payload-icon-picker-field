@@ -4,10 +4,9 @@ import { IconBaseProps } from "react-icons"
 export const iconPickerField = (
   options?: {
     icons?: Record<string, string>
-    reactIconPack?: { [key: string]: (props: IconBaseProps) => Element }
   } & Partial<TextField>,
 ): Field => {
-  const { icons, reactIconPack, ...rest } = options || {}
+  const { icons, ...rest } = options || {}
 
   return {
     ...rest,
@@ -19,8 +18,7 @@ export const iconPickerField = (
         ...rest?.admin?.components,
         Field: {
           clientProps: {
-            icons,
-            reactIconPack,
+            icons: icons,
           },
           path: '@innovixx/payload-icon-picker-field/components#IconPickerFieldComponent',
         },

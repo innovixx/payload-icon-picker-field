@@ -7,9 +7,7 @@ import React, { useEffect, useState } from 'react'
 
 import type { IconPickerInputProps } from './types'
 
-import './index.scss'
-
-const baseClass = 'color'
+const baseClass = 'icon'
 
 export const IconPickerInput: React.FC<IconPickerInputProps> = (props) => {
   const {
@@ -34,7 +32,6 @@ export const IconPickerInput: React.FC<IconPickerInputProps> = (props) => {
     style,
     value,
     icons,
-    renderSvg,
   } = props
 
   const [fieldIsFocused, setFieldIsFocused] = useState(false)
@@ -72,12 +69,11 @@ export const IconPickerInput: React.FC<IconPickerInputProps> = (props) => {
     }
   }, [debouncedSearch, icons])
 
-
   return (
     <div
       className={[
         fieldBaseClass,
-        'color',
+        'icon',
         className,
         showError && 'error',
         readOnly && 'read-only',
@@ -100,20 +96,19 @@ export const IconPickerInput: React.FC<IconPickerInputProps> = (props) => {
         {BeforeInput}
         <div
           className={`${baseClass}__input-container`}
+          onFocus={() => setFieldIsFocused(true)}
           onBlur={e => {
             if (!e.currentTarget.contains(e.relatedTarget)) {
-              setFieldIsFocused(false)
+              setTimeout(() => {
+                setFieldIsFocused(false);
+                setSearch("")
+              }, 200)
             }
           }}
-          onFocus={() => setFieldIsFocused(true)}
         >
           {!rtl && (
             <div className={`${baseClass}__icon-preview`} onClick={() => setFieldIsFocused(true)}>
-              {renderSvg ? (
-                <span dangerouslySetInnerHTML={{ __html: (value && icons && icons[value]) || '' }} />
-              ) : (
-                value && icons && typeof icons[value] === 'function' && icons[value]?.()
-              )}
+              <span dangerouslySetInnerHTML={{ __html: (value && icons && icons[value]) || '' }} />
             </div>
           )}
           <input
@@ -130,11 +125,7 @@ export const IconPickerInput: React.FC<IconPickerInputProps> = (props) => {
           />
           {rtl && (
             <div className={`${baseClass}__icon-preview`} onClick={() => setFieldIsFocused(true)}>
-              {renderSvg ? (
-                <span dangerouslySetInnerHTML={{ __html: (value && icons && icons[value]) || '' }} />
-              ) : (
-                value && icons && typeof icons[value] === 'function' && icons[value]?.()
-              )}
+              <span dangerouslySetInnerHTML={{ __html: (value && icons && icons[value]) || '' }} />
             </div>
           )}
           {fieldIsFocused && (
@@ -144,7 +135,8 @@ export const IconPickerInput: React.FC<IconPickerInputProps> = (props) => {
             >
               <div className={`${baseClass}__icon-picker-modal__pagination-meta-container`}>
                 <span>
-                  Showing{' '}
+                  Showing
+                  {' '}
                   {Object.keys(filteredIcons as Record<string, string>).length > 140
                     ? 140
                     : Object.keys(filteredIcons as Record<string, string>).length}{' '}
@@ -152,7 +144,7 @@ export const IconPickerInput: React.FC<IconPickerInputProps> = (props) => {
                 </span>
               </div>
               <div className={`${baseClass}__icon-picker-modal__icon-container`}>
-                {Object.keys(filteredIcons as Record<string, string>)
+                {typeof filteredIcons === 'object' && Object.keys(filteredIcons as Record<string, string>)
                   .slice(0, 140)
                   .map((icon, index) => (
                     <div
@@ -172,18 +164,14 @@ export const IconPickerInput: React.FC<IconPickerInputProps> = (props) => {
                         }`}
                       key={index}
                     >
-                      {renderSvg ? (
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: (icon && icons && icons[icon]) || '',
-                          }}
-                        />
-                      ) : (
-                        icon && icons && typeof icons[value] === 'function' && icons[value]?.()
-                      )}
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: (icon && icons && icons[icon]) || '',
+                        }}
+                      />
                     </div>
                   ))}
-                {Object.keys(filteredIcons as Record<string, string>).length == 0 && (
+                {typeof filteredIcons === 'object' && Object.keys(filteredIcons as Record<string, string>).length == 0 && (
                   <span>No icons found</span>
                 )}
               </div>

@@ -16,7 +16,7 @@ export type IconPickerInputProps = {
   readonly Description?: React.ReactNode
   readonly description?: StaticDescription
   readonly Error?: React.ReactNode
-  readonly icons?: Record<string, string | (() => React.ReactNode)>
+  readonly icons?: Record<string, string>
   readonly inputRef?: React.RefObject<HTMLInputElement>
   readonly Label?: React.ReactNode
   readonly label?: StaticLabel
@@ -25,7 +25,6 @@ export type IconPickerInputProps = {
   readonly path: string
   readonly placeholder?: Record<string, string> | string
   readonly readOnly?: boolean
-  readonly renderSvg?: boolean
   readonly required?: boolean
   readonly rtl?: boolean
   readonly showError?: boolean
@@ -39,7 +38,6 @@ type IconPickerFieldBaseClientProps = {
   readonly inputRef?: React.RefObject<HTMLInputElement>;
   readonly onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
   readonly path: string;
-  readonly renderSvg?: boolean
   readonly validate?: TextFieldValidation;
 };
 export type IconPickerFieldClientComponent = FieldClientComponent<IconPickerFieldClientWithoutType, IconPickerFieldBaseClientProps>;

@@ -1,5 +1,4 @@
 import type { CollectionConfig } from 'payload'
-import * as fa6Icons from 'react-icons/bs'
 
 import { iconPickerField } from '@innovixx/payload-icon-picker-field'
 import { icons } from '../assets/icons'
@@ -24,11 +23,6 @@ export const Pages: CollectionConfig = {
       name: 'customIcons',
       label: 'Custom Icons',
       icons: icons,
-    }),
-    iconPickerField({
-      name: 'reactIconsIcon',
-      label: 'React Icons',
-      reactIconPack: fa6Icons,
     }),
     {
       name: 'excerpt',

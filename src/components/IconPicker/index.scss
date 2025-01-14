@@ -42,6 +42,7 @@
     padding: base(0.5);
 
     max-width: base(15);
+    width: 100%;
     margin-top: base(0.5);
     z-index: $z-modal;
 
@@ -91,8 +92,8 @@
     }
 
     &__icon-search {
-      &input {
-        color: var(--theme-elevation-800);
+      & input {
+        @include formInput;
       }
     }
   }
