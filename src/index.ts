@@ -1,5 +1,4 @@
 import type { Field, TextField } from "payload"
-import { IconBaseProps } from "react-icons"
 
 export const iconPickerField = (
   options?: {
