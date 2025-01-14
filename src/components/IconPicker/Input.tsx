@@ -112,7 +112,7 @@ export const IconPickerInput: React.FC<IconPickerInputProps> = (props) => {
               {renderSvg ? (
                 <span dangerouslySetInnerHTML={{ __html: (value && icons && icons[value]) || '' }} />
               ) : (
-                value && icons && icons[value]
+                value && icons && typeof icons[value] === 'function' && icons[value]?.()
               )}
             </div>
           )}
@@ -133,7 +133,7 @@ export const IconPickerInput: React.FC<IconPickerInputProps> = (props) => {
               {renderSvg ? (
                 <span dangerouslySetInnerHTML={{ __html: (value && icons && icons[value]) || '' }} />
               ) : (
-                value && icons && icons[value]
+                value && icons && typeof icons[value] === 'function' && icons[value]?.()
               )}
             </div>
           )}
@@ -179,7 +179,7 @@ export const IconPickerInput: React.FC<IconPickerInputProps> = (props) => {
                           }}
                         />
                       ) : (
-                        icon && icons && icons[icon]
+                        icon && icons && typeof icons[value] === 'function' && icons[value]?.()
                       )}
                     </div>
                   ))}

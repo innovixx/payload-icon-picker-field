@@ -16,7 +16,7 @@ export type IconPickerInputProps = {
   readonly Description?: React.ReactNode
   readonly description?: StaticDescription
   readonly Error?: React.ReactNode
-  readonly icons?: Record<string, string>
+  readonly icons?: Record<string, string | (() => React.ReactNode)>
   readonly inputRef?: React.RefObject<HTMLInputElement>
   readonly Label?: React.ReactNode
   readonly label?: StaticLabel
