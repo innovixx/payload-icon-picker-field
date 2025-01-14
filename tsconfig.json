@@ -1,19 +1,28 @@
 {
   "compilerOptions": {
-    "target": "es2019",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2022"
+    ],
     "outDir": "./dist",
     "allowJs": true,
-    "module": "commonjs",
-    "sourceMap": true,
-    "jsx": "react",
+    "skipLibCheck": true,
+    "strict": false,
     "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "incremental": true,
     "declaration": true,
     "declarationDir": "./dist",
-    "skipLibCheck": true,
-    "strict": true,
-    "paths": {
-      "react": ["./node_modules/@types/react"],
-    }
+    "jsx": "preserve",
+    "target": "ES2022",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
   },
   "include": [
     "src/**/*"

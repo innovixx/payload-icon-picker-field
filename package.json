@@ -4,16 +4,14 @@
   "homepage:": "https://innovixx.co.uk",
   "repository": "git@github.com:Innovixx-Development/payload-icon-picker-field.git",
   "description": "payload-icon-picker-field",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
-    "build": "tsc && yarn copy:scss",
+    "build": "tsc && pnpm copy:scss",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src",
     "lint:fix": "eslint --fix --ext .ts,.tsx src",
     "copy:scss": "copyfiles -u 1 \"src/**/*.scss\" dist",
-    "watch": "nodemon --watch src -e ts,tsx,scss --exec \"yarn build\"",
-    "prepare": "npm run build"
+    "watch": "nodemon --watch src -e ts,tsx,scss --exec \"pnpm build\""
   },
   "keywords": [
     "payload",
@@ -27,38 +25,48 @@
   "author": "support@innovixx.co.uk",
   "license": "MIT",
   "peerDependencies": {
-    "payload": "^2.0.0",
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "next": "^15.0.0",
+    "payload": "^3.2.2",
+    "react": "^19.0.0",
     "react-icons": "^4.12.0"
   },
   "devDependencies": {
-    "@payloadcms/eslint-config": "^0.0.1",
-    "@types/express": "^4.17.9",
-    "@types/node": "18.11.3",
-    "@types/react": "18.0.21",
-    "@typescript-eslint/eslint-plugin": "^5.51.0",
-    "@typescript-eslint/parser": "^5.51.0",
+    "@payloadcms/eslint-config": "^3.0.0",
+    "@payloadcms/next": "3.16.0",
+    "@payloadcms/translations": "3.16.0",
+    "@payloadcms/ui": "3.16.0",
+    "@types/node": "^20.14.14",
+    "@types/react": "19.0.0",
+    "@types/react-dom": "19.0.0",
+    "@typescript-eslint/eslint-plugin": "5.12.1",
+    "@typescript-eslint/parser": "5.12.1",
     "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
-    "eslint": "^8.19.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-filenames": "^1.3.2",
-    "eslint-plugin-import": "2.25.4",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-simple-import-sort": "^10.0.0",
-    "nodemon": "^3.0.1",
-    "payload": "^2.1.1",
+    "next": "15.1.3",
+    "nodemon": "^2.0.6",
+    "payload": "3.16.0",
     "prettier": "^2.7.1",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "ts-essentials": "^10.0.3",
     "ts-node": "^9.1.1",
-    "typescript": "4.8.4"
+    "typescript": "5.7.2"
   },
   "files": [
-    "dist",
-    "types.js",
-    "types.d.ts"
+    "dist"
   ],
-  "dependencies": {
-    "deepmerge": "^4.3.1"
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./components": {
+      "import": "./dist/components/index.js",
+      "types": "./dist/components/index.d.ts",
+      "default": "./dist/components/index.js"
+    }
   }
 }

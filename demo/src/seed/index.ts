@@ -1,10 +1,10 @@
-import type { Payload } from 'payload'
+import type { CollectionSlug, Payload } from 'payload'
 
 export const seed = async (payload: Payload): Promise<void> => {
   payload.logger.info('Seeding data...')
 
   await payload.create({
-    collection: 'users',
+    collection: 'users' as CollectionSlug,
     data: {
       email: 'admin@innovixx.co.uk',
       password: 'Pa$$w0rd!',
@@ -12,7 +12,7 @@ export const seed = async (payload: Payload): Promise<void> => {
   })
 
   await payload.create({
-    collection: 'pages',
+    collection: 'pages' as CollectionSlug,
     data: {
       title: 'Home Page',
       slug: 'home',
@@ -21,7 +21,7 @@ export const seed = async (payload: Payload): Promise<void> => {
   })
 
   await payload.create({
-    collection: 'posts',
+    collection: 'posts' as CollectionSlug,
     data: {
       title: 'Hello, world!',
       slug: 'hello-world',

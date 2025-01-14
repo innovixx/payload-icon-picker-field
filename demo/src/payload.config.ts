@@ -1,51 +1,40 @@
-import { webpackBundler } from '@payloadcms/bundler-webpack'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
-import { buildConfig } from 'payload/config'
+import { buildConfig } from 'payload'
+import { fileURLToPath } from 'url'
 
-import Media from './collections/Media'
-import Pages from './collections/Pages'
-import Posts from './collections/Posts'
-import Users from './collections/Users'
-import HomePage from './globals/Settings'
+import { Media } from './collections/Media'
+import { Pages } from './collections/Pages'
+import { Posts } from './collections/Posts'
+import { Users } from './collections/Users'
+import { seed } from './seed'
 
+const filename = fileURLToPath(import.meta.url)
+const dirname = path.dirname(filename)
+// eslint-disable-next-line no-restricted-exports
 export default buildConfig({
-  serverURL: 'http://localhost:3000',
-
-  db: mongooseAdapter({
-    url: process.env.MONGODB_URI,
-  }),
-
-  editor: lexicalEditor({}),
-
   admin: {
-    user: Users.slug,
-    bundler: webpackBundler(),
-    webpack: config => {
-      const newConfig = {
-        ...config,
-        resolve: {
-          ...config.resolve,
-          alias: {
-            ...config.resolve.alias,
-            react: path.join(__dirname, '../node_modules/react'),
-            'react-dom': path.join(__dirname, '../node_modules/react-dom'),
-            payload: path.join(__dirname, '../node_modules/payload'),
-          },
-        },
-      }
-      return newConfig
+    importMap: {
+      baseDir: path.resolve(dirname),
     },
+    user: Users.slug,
   },
-  collections: [Users, Pages, Posts, Media],
-  globals: [HomePage],
-  localization: {
-    locales: ['en', 'es', 'de'],
-    defaultLocale: 'en',
-    fallback: true,
+  collections: [Media, Pages, Users, Posts],
+  db: mongooseAdapter({
+    url: process.env.DATABASE_URI || '',
+  }),
+  editor: lexicalEditor({}),
+  graphQL: {
+    schemaOutputFile: path.resolve(dirname, 'lib/schema.graphql'),
   },
+  onInit: async payload => {
+    if (process.env.NODE_ENV === 'development' && process.env.PAYLOAD_SEED_DATABASE) {
+      await seed(payload)
+    }
+  },
+  secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
-    outputFile: path.resolve(__dirname, 'payload-types.ts'),
-  },
+    outputFile: path.resolve(dirname, 'lib/types.ts'),
+  }
 })

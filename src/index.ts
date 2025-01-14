@@ -1,47 +1,31 @@
-import type { Field, TextField } from 'payload/dist/fields/config/types'
+import type { Field, TextField } from "payload"
+import { IconBaseProps } from "react-icons"
 
-import IconInput from './components/IconInput'
-
-interface IconBaseProps extends React.SVGAttributes<SVGElement> {
-  children?: React.ReactNode
-  size?: string | number
-  color?: string
-  title?: string
-}
-
-export default (
-  options?: Partial<TextField> & {
+export const iconPickerField = (
+  options?: {
     icons?: Record<string, string>
-    reactIconPack?: { [key: string]: (props: IconBaseProps) => JSX.Element }
-  },
+    reactIconPack?: { [key: string]: (props: IconBaseProps) => Element }
+  } & Partial<TextField>,
 ): Field => {
-  const { icons, reactIconPack, ...overwriteOptions } = options || {}
-
-  let iconsFromPackAsRecord = {}
-
-  if (!icons && reactIconPack) {
-    iconsFromPackAsRecord = Object.entries(reactIconPack).reduce(
-      (acc, [key, Icon]) =>
-        typeof Icon === 'function' && {
-          ...acc,
-          [key]: Icon,
-        },
-      {},
-    )
-  }
+  const { icons, reactIconPack, ...rest } = options || {}
 
   return {
-    ...overwriteOptions,
-    name: overwriteOptions?.name || 'iconPicker',
-    label: overwriteOptions?.label || 'Icon Picker',
+    ...rest,
+    name: rest?.name || 'iconPicker',
     type: 'text',
     admin: {
-      ...overwriteOptions?.admin,
+      ...rest?.admin,
       components: {
-        ...overwriteOptions?.admin?.components,
-        Field: args =>
-          IconInput({ ...args, icons: icons || iconsFromPackAsRecord, renderSvg: Boolean(icons) }),
+        ...rest?.admin?.components,
+        Field: {
+          clientProps: {
+            icons,
+            reactIconPack,
+          },
+          path: '@innovixx/payload-icon-picker-field/components#IconPickerFieldComponent',
+        },
       },
     },
-  }
+    label: rest?.label || 'Icon Picker',
+  } as TextField
 }
