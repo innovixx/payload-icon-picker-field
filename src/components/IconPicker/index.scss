@@ -25,7 +25,8 @@
     & span {
       color: var(--theme-elevation-800);
       fill: var(--theme-elevation-800);
-
+      height: base(1);
+      width: base(1);
       & > * {
         height: base(1);
         width: base(1);
@@ -80,6 +81,17 @@
       transition: all 0.25s ease;
 
       cursor: pointer;
+
+      & span {
+        color: var(--theme-elevation-800);
+        fill: var(--theme-elevation-800);
+        height: base(1);
+        width: base(1);
+        & > * {
+          height: base(1);
+          width: base(1);
+        }
+      }
 
       &:hover {
         background-color: var(--theme-elevation-100);
