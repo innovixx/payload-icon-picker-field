@@ -18,6 +18,7 @@ export const iconPickerField = (
         Field: {
           clientProps: {
             icons: icons,
+            readOnly: rest?.admin?.readOnly,
           },
           path: '@innovixx/payload-icon-picker-field/components#IconPickerFieldComponent',
         },
