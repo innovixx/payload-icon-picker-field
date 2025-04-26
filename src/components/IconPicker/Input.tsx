@@ -44,12 +44,7 @@ export const IconPickerInput: React.FC<IconPickerInputProps> = (props) => {
   const { i18n, t } = useTranslation()
 
   const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    if (!evt.target.value.startsWith('#')) {
-      evt.target.value = `#${evt.target.value}`
-    }
-
-    evt.target.value = evt.target.value.replace(/[^a-f0-9#]/gi, '').slice(0, 7)
-
+    setSearch(evt.target.value)
     onChange?.(evt as any)
   }
 

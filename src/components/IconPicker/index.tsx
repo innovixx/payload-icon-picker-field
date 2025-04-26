@@ -89,6 +89,7 @@ const IconPickerField: IconPickerFieldClientComponent = (props) => {
       style={styles}
       value={(value as string) || ''}
       icons={icons}
+      placeholder={placeholder}
     />
   )
 }
