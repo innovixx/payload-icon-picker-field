@@ -1,6 +1,6 @@
 {
   "name": "@innovixx/payload-icon-picker-field",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homepage:": "https://innovixx.co.uk",
   "repository": "git@github.com:Innovixx-Development/payload-icon-picker-field.git",
   "description": "payload-icon-picker-field",
@@ -25,7 +25,7 @@
   "author": "support@innovixx.co.uk",
   "license": "MIT",
   "peerDependencies": {
-    "next": "15.1.9",
+    "next": ">=15.1.9",
     "payload": "^3.2.2",
     "react": "^19.0.0"
   },
